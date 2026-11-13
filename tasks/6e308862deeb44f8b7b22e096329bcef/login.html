@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FB7299" />
+<title>BiliLite - 登录</title>
+<link rel="stylesheet" href="assets/css/app.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FB7299'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fff' font-family='sans-serif'%3EB%3C/text%3E%3C/svg%3E" />
+</head>
+<body data-page="login">
+<div class="app">
+
+  <header class="appbar">
+    <a class="iconbtn" id="backBtn" href="index.html" aria-label="返回首页">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <h1 class="appbar__title">账号</h1>
+    <span style="width:32px;"></span>
+  </header>
+
+  <main class="page page--plain" id="main">
+    <section class="login">
+
+      <div class="login__logo">
+        <svg width="112" height="78" viewBox="0 0 112 78" role="img" aria-label="BiliLite">
+          <g fill="none" stroke="#FB7299" stroke-width="4.2" stroke-linecap="round">
+            <path d="M40 26L30 15M72 26l10-11" />
+          </g>
+          <rect x="14" y="24" width="84" height="52" rx="14" fill="#FB7299" />
+          <circle cx="40" cy="46" r="5.4" fill="#FFFFFF" />
+          <circle cx="72" cy="46" r="5.4" fill="#FFFFFF" />
+          <path d="M42 62h28" stroke="#FFFFFF" stroke-width="4.6" stroke-linecap="round" />
+        </svg>
+        <p class="login__slogan">欢迎来到 BiliLite，干杯！</p>
+      </div>
+
+      <div class="login__tabs" role="tablist" aria-label="登录或注册">
+        <button class="login__tab is-active" id="loginTab" type="button" role="tab" aria-selected="true" aria-controls="authForm">登录</button>
+        <button class="login__tab" id="registerTab" type="button" role="tab" aria-selected="false" aria-controls="authForm">注册</button>
+      </div>
+
+      <form id="authForm" novalidate>
+        <div class="field">
+          <label class="field__label" for="username">账号</label>
+          <input class="input" id="username" name="username" type="text" autocomplete="username"
+                 maxlength="16" placeholder="2-16 位昵称或账号" />
+        </div>
+
+        <div class="field" id="nicknameField" hidden>
+          <label class="field__label" for="nickname">昵称（选填）</label>
+          <input class="input" id="nickname" name="nickname" type="text" maxlength="16" placeholder="给自己起个昵称" />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="password">密码</label>
+          <input class="input" id="password" name="password" type="password" autocomplete="current-password"
+                 maxlength="32" placeholder="不少于 6 位" />
+        </div>
+
+        <div class="field" id="confirmField" hidden>
+          <label class="field__label" for="confirm">确认密码</label>
+          <input class="input" id="confirm" name="confirm" type="password" autocomplete="new-password"
+                 maxlength="32" placeholder="再输入一次密码" />
+        </div>
+
+        <p class="form-error" id="formError" role="alert"></p>
+
+        <button class="btn btn--primary btn--block" id="submitBtn" type="submit">登 录</button>
+      </form>
+
+      <div class="divider">其他方式</div>
+
+      <p class="guest-tip" id="guestTip">
+        演示账号：demo，密码：123456
+      </p>
+
+      <div class="login__foot">
+        <a href="index.html" id="guestLink">先随便逛逛</a>
+        <a href="#" id="forgotLink">忘记密码？</a>
+      </div>
+
+    </section>
+  </main>
+
+</div>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>
