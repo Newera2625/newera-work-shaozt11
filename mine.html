@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FB7299" />
+<title>BiliLite - 我的</title>
+<link rel="stylesheet" href="assets/css/app.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FB7299'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fff' font-family='sans-serif'%3EB%3C/text%3E%3C/svg%3E" />
+</head>
+<body data-page="mine">
+<div class="app">
+
+  <header class="statusbar" aria-label="状态栏">
+    <span data-clock>09:41</span>
+    <span class="statusbar__right">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="9" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="2.5" height="12" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M8 10.5l2.2-2.6a3.3 3.3 0 0 0-4.4 0L8 10.5z" fill="currentColor"/><path d="M4.2 5.6a6 6 0 0 1 7.6 0M1.6 3a9.4 9.4 0 0 1 12.8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <svg width="22" height="12" viewBox="0 0 22 12" fill="none" aria-hidden="true"><rect x="0.6" y="0.6" width="18" height="10.8" rx="3" stroke="currentColor" stroke-width="1.1"/><rect x="2.2" y="2.2" width="13" height="7.6" rx="1.8" fill="currentColor"/><path d="M20.4 4v4c1.2-.4 1.6-1 1.6-2s-.4-1.6-1.6-2z" fill="currentColor"/></svg>
+    </span>
+  </header>
+
+  <header class="appbar">
+    <h1 class="appbar__title">我的</h1>
+    <button class="iconbtn iconbtn--muted" id="settingBtn" type="button" aria-label="设置">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.6v2.2M12 18.2v2.2M20.4 12h-2.2M5.8 12H3.6M18 6l-1.6 1.6M7.6 16.4L6 18M18 18l-1.6-1.6M7.6 7.6L6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <main class="page page--plain" id="main">
+
+    <!-- 未登录引导 -->
+    <section class="empty" id="loginHint" hidden>
+      <svg class="empty__icon" width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8.4" r="3.9" stroke="currentColor" stroke-width="1.4"/><path d="M4.8 20c0-3.4 3.2-5.6 7.2-5.6s7.2 2.2 7.2 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <p class="empty__title">登录后查看你的收藏与历史</p>
+      <p class="empty__desc">登录即可同步观看记录、投稿与关注</p>
+      <a class="btn btn--primary" id="goLoginBtn" href="login.html?redirect=mine.html">立即登录</a>
+    </section>
+
+    <!-- 资料卡 -->
+    <section class="profile" id="profileCard" hidden aria-label="用户资料">
+      <div class="profile__top">
+        <span class="avatar avatar--lg" id="profileAvatar"></span>
+        <div class="profile__info">
+          <div class="profile__name">
+            <span id="profileName">—</span>
+            <span class="level" id="profileLevel">LV1</span>
+          </div>
+          <p class="profile__sig" id="profileSig">—</p>
+        </div>
+        <button class="iconbtn iconbtn--muted" id="settingBtn2" type="button" aria-label="账号设置">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.6v2.2M12 18.2v2.2M20.4 12h-2.2M5.8 12H3.6M18 6l-1.6 1.6M7.6 16.4L6 18M18 18l-1.6-1.6M7.6 7.6L6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="profile__stats">
+        <div class="profile__stat"><b id="statFollowing">0</b><span>关注</span></div>
+        <div class="profile__stat"><b id="statFollowers">0</b><span>粉丝</span></div>
+        <div class="profile__stat"><b id="statLikes">0</b><span>获赞</span></div>
+      </div>
+    </section>
+
+    <!-- 入口宫格 -->
+    <nav class="entries" id="entries" hidden aria-label="我的内容">
+      <button class="entry" type="button" data-entry="videos">
+        <span class="entry__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M10.4 9.6l4.6 2.4-4.6 2.4V9.6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </span>
+        <span>投稿</span>
+        <span class="entry__count" data-count="videos">0</span>
+      </button>
+      <button class="entry" type="button" data-entry="favorites">
+        <span class="entry__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2l2.3 4.8 5.2.7-3.8 3.7.9 5.2-4.6-2.5-4.6 2.5.9-5.2L4.5 9.7l5.2-.7L12 4.2z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </span>
+        <span>收藏</span>
+        <span class="entry__count" data-count="favorites">0</span>
+      </button>
+      <button class="entry" type="button" data-entry="watch_later">
+        <span class="entry__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.6V12l3 1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span>稍后再看</span>
+        <span class="entry__count" data-count="watch_later">0</span>
+      </button>
+      <button class="entry" type="button" data-entry="history">
+        <span class="entry__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 5.4V9h3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.4l3 1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </span>
+        <span>历史</span>
+        <span class="entry__count" data-count="history">0</span>
+      </button>
+    </nav>
+
+    <!-- 列表区 -->
+    <section class="section" id="listSection" hidden aria-labelledby="listTitle">
+      <div class="section__head">
+        <h2 class="section__title" id="listTitle">最近观看</h2>
+        <span class="section__more" id="listCount"></span>
+      </div>
+      <div class="list" id="myList" aria-live="polite"></div>
+      <div class="loader" id="listLoading" hidden><span class="spinner" aria-hidden="true"></span><span>加载中</span></div>
+      <div class="empty" id="listEmpty" hidden>
+        <svg class="empty__icon" width="52" height="52" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M10.4 9.6l4.6 2.4-4.6 2.4V9.6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <p class="empty__title" id="listEmptyTitle">这里还没有内容</p>
+        <p class="empty__desc" id="listEmptyDesc">去首页看看精彩内容吧</p>
+      </div>
+    </section>
+
+    <div class="section" id="actionSection" hidden>
+      <div class="section__head">
+        <button class="btn btn--ghost btn--block" id="logoutBtn" type="button">退出登录</button>
+      </div>
+    </div>
+
+  </main>
+
+  <nav class="tabbar" aria-label="底部导航">
+    <a class="tabbar__item" data-nav="home" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10.4L12 4l8 6.4V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1v-8.6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      <span>首页</span>
+    </a>
+    <a class="tabbar__item" data-nav="search" href="search.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.4" stroke="currentColor" stroke-width="1.7"/><path d="M15.8 15.8L20 20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span>搜索</span>
+    </a>
+    <a class="tabbar__item tabbar__publish" href="index.html#publish" aria-label="投稿">
+      <span class="tabbar__publish-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </a>
+    <a class="tabbar__item" data-nav="message" href="message.html">
+      <span style="position:relative;display:inline-flex;">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.6 3.2A.6.6 0 0 1 4.5 19.6V6.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <span class="badge" data-unread-badge hidden style="top:-2px;left:12px;"></span>
+      </span>
+      <span>消息</span>
+    </a>
+    <a class="tabbar__item" data-nav="mine" href="mine.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8.4" r="3.9" stroke="currentColor" stroke-width="1.7"/><path d="M4.8 20c0-3.4 3.2-5.6 7.2-5.6s7.2 2.2 7.2 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span>我的</span>
+    </a>
+  </nav>
+
+</div>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/mine.js"></script>
+</body>
+</html>

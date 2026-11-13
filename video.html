@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FB7299" />
+<title>BiliLite - 播放</title>
+<link rel="stylesheet" href="assets/css/app.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FB7299'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fff' font-family='sans-serif'%3EB%3C/text%3E%3C/svg%3E" />
+</head>
+<body data-page="video">
+<div class="app">
+
+  <header class="statusbar" aria-label="状态栏">
+    <span data-clock>09:41</span>
+    <span class="statusbar__right">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="9" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="2.5" height="12" rx="1" fill="currentColor"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M8 10.5l2.2-2.6a3.3 3.3 0 0 0-4.4 0L8 10.5z" fill="currentColor"/><path d="M4.2 5.6a6 6 0 0 1 7.6 0M1.6 3a9.4 9.4 0 0 1 12.8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <svg width="22" height="12" viewBox="0 0 22 12" fill="none" aria-hidden="true"><rect x="0.6" y="0.6" width="18" height="10.8" rx="3" stroke="currentColor" stroke-width="1.1"/><rect x="2.2" y="2.2" width="13" height="7.6" rx="1.8" fill="currentColor"/><path d="M20.4 4v4c1.2-.4 1.6-1 1.6-2s-.4-1.6-1.6-2z" fill="currentColor"/></svg>
+    </span>
+  </header>
+
+  <header class="appbar">
+    <a class="iconbtn" href="index.html" id="backBtn" aria-label="返回">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <h1 class="appbar__title" id="navTitle">视频</h1>
+    <button class="iconbtn" id="shareBtn" type="button" aria-label="分享">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="18.5" r="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M8.3 10.8l7.4-4M8.3 13.2l7.4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <main class="page" id="main">
+
+    <!-- 播放器 -->
+    <div class="player" id="player">
+      <div class="player__stage" id="playerStage">
+        <span class="player__hint" id="stageHint">演示播放画面</span>
+      </div>
+      <div class="player__center">
+        <button class="player__playbtn" id="playBtn" type="button" aria-label="播放">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5z"/></svg>
+        </button>
+      </div>
+      <div class="player__bar">
+        <button class="player__ctrl" id="playToggle" type="button" aria-label="播放或暂停">播放</button>
+        <div class="player__progress" id="progress" role="slider" aria-label="播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+          <div class="player__track"><div class="player__bar-fill" id="barFill"></div></div>
+        </div>
+        <span class="player__time"><span id="curTime">00:00</span> / <span id="totalTime">00:00</span></span>
+        <button class="player__ctrl" id="speedBtn" type="button" aria-label="倍速">1x</button>
+        <button class="player__ctrl" id="fullBtn" type="button" aria-label="全屏">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 标题与数据 -->
+    <section class="section" aria-labelledby="videoTitle">
+      <h2 class="detail__title" id="videoTitle" style="padding:12px 16px 0;">加载中</h2>
+      <div class="detail__stats" id="videoStats" style="padding:0 16px 12px;"></div>
+    </section>
+
+    <!-- UP 主卡片 -->
+    <section class="upcard" id="upCard" aria-label="UP 主信息">
+      <span class="avatar avatar--lg" id="upAvatar"></span>
+      <div class="upcard__body">
+        <div class="upcard__name" id="upName">—</div>
+        <div class="upcard__meta" id="upMeta">—</div>
+      </div>
+      <div class="upcard__actions">
+        <button class="btn btn--primary btn--sm" id="followBtn" type="button">关注</button>
+        <button class="btn btn--ghost btn--sm" id="dmBtn" type="button">发消息</button>
+      </div>
+    </section>
+
+    <!-- 简介 -->
+    <section class="desc" id="descBox">
+      <p class="desc__text" id="descText">暂无简介</p>
+      <button class="desc__toggle" id="descToggle" type="button" hidden>展开</button>
+    </section>
+
+    <!-- 相关推荐 -->
+    <section class="section" aria-labelledby="relatedTitle">
+      <div class="section__head">
+        <h3 class="section__title" id="relatedTitle">相关推荐</h3>
+        <span class="section__more">换一批</span>
+      </div>
+      <div class="grid" id="relatedGrid"></div>
+    </section>
+
+    <!-- 评论 -->
+    <section class="section" aria-labelledby="commentTitle">
+      <div class="section__head">
+        <h3 class="section__title" id="commentTitle">评论</h3>
+        <span class="section__more" id="commentCount">0</span>
+      </div>
+      <form class="comment-form" id="commentForm">
+        <input class="comment-form__input" id="commentInput" type="text" maxlength="200" placeholder="说点什么…" aria-label="评论内容" />
+        <button class="btn btn--primary btn--sm" id="commentSubmit" type="submit">发送</button>
+      </form>
+      <div id="commentList"></div>
+      <div class="loader" id="commentLoading" hidden><span class="spinner" aria-hidden="true"></span><span>加载评论</span></div>
+    </section>
+
+  </main>
+
+  <!-- 底部操作栏 -->
+  <div class="actionbar" id="actionBar">
+    <button class="actionbar__item" id="likeBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10.5v8.5H4.6A1.6 1.6 0 0 1 3 17.4v-5.3a1.6 1.6 0 0 1 1.6-1.6H7zM7 10.5l4.2-6.6A1.6 1.6 0 0 1 14 5.2l-.7 5.3h4.9a2 2 0 0 1 2 2.4l-1.3 5.6a2.2 2.2 0 0 1-2.2 1.7H7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span id="likeText">点赞</span>
+    </button>
+    <button class="actionbar__item" id="favBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4.2l2.3 4.8 5.2.7-3.8 3.7.9 5.2-4.6-2.5-4.6 2.5.9-5.2L4.5 9.7l5.2-.7L12 4.2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span id="favText">收藏</span>
+    </button>
+    <button class="actionbar__item" id="coinBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.4v9.2M9.6 9.6h3.6a1.8 1.8 0 0 1 0 3.6H9.6h3.9a1.8 1.8 0 0 1 0 3.6H9.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <span id="coinText">投币</span>
+    </button>
+    <button class="actionbar__item" id="shareAction" type="button">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="18.5" r="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M8.3 10.8l7.4-4M8.3 13.2l7.4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span>分享</span>
+    </button>
+  </div>
+
+</div>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/video.js"></script>
+</body>
+</html>
